@@ -1,0 +1,33 @@
+
+name: Build MD Library
+
+on:
+  workflow_dispatch:
+# allow manual trigger
+
+jobs:
+  mini_detour_build:
+    uses: JunaMeinhold/cmake-actions/cmake.yml@v1
+    with:
+      lib-name: mini_detour
+      repo-tag: feature/shared-library
+      repo: Nemirtingas/mini_detour
+      output-dir: artifacts,
+      cmake-flags: -DBUILD_SHARED_LIBS=ON -DMINIDETOUR_DYNAMIC_RUNTIME=OFF -DMINIDETOUR_BUILD_TESTS=OFF
+      bin-name-linux: libmini_detour.so
+      bin-name-linux-normalized: mini_detour.so
+      bin-name-windows: Release/mini_detour.dll
+      bin-name-windows-normalized: mini_detour.dll
+      bin-name-osx: libmini_detour.dylib
+      bin-name-osx-normalized: mini_detour.dylib
+
+  create-pr:
+    needs: [mini_detour_build]
+    uses: JunaMeinhold/cmake-actions/create-pr.yml@v1
+    with:
+      lib-name: "mini_detour"
+      lib-version: "v1.1.4"
+      pr-base-branch: "main"
+      pr-reviewers: JunaMeinhold
+      pr-branch: mini_detour-artifacts
+      pr-manifest-path: mini_detour
