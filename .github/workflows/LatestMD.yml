@@ -20,6 +20,9 @@ jobs:
       bin-name-windows-normalized: mini_detour.dll
       bin-name-osx: libmini_detour.dylib
       bin-name-osx-normalized: mini_detour.dylib
+      bin-name-android: libmini_detour.so
+      bin-name-android-normalized: libmini_detour.so
+      enable-android: false
 
   create-pr:
     needs: [mini_detour_build]
