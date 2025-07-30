@@ -7,7 +7,7 @@ on:
 
 jobs:
   mini_detour_build:
-    uses: JunaMeinhold/cmake-actions/cmake.yml@v1
+    uses: JunaMeinhold/cmake-actions/.github/workflows/cmake.yml@v1.x.x
     with:
       lib-name: mini_detour
       repo-tag: feature/shared-library
@@ -23,7 +23,7 @@ jobs:
 
   create-pr:
     needs: [mini_detour_build]
-    uses: JunaMeinhold/cmake-actions/create-pr.yml@v1
+    uses: JunaMeinhold/cmake-actions/.github/workflows/create-pr.yml@v1.x.x
     with:
       lib-name: "mini_detour"
       lib-version: "v1.1.4"
