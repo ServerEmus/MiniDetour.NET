@@ -12,7 +12,6 @@ jobs:
       lib-name: mini_detour
       repo-tag: feature/shared-library
       repo: Nemirtingas/mini_detour
-      output-dir: artifacts
       cmake-flags: -DBUILD_SHARED_LIBS=ON -DMINIDETOUR_DYNAMIC_RUNTIME=OFF -DMINIDETOUR_BUILD_TESTS=OFF
       bin-name-linux: libmini_detour.so
       bin-name-linux-normalized: mini_detour.so
