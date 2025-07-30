@@ -32,4 +32,4 @@ jobs:
       pr-base-branch: "main"
       pr-reviewers: Detanup01
       pr-branch: mini_detour-artifacts
-      pr-manifest-path: artifactpath/workflows_path.json
+      pr-manifest-path: mini_detour
