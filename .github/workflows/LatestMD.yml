@@ -30,6 +30,6 @@ jobs:
       lib-name: "mini_detour"
       lib-version: "v1.1.4"
       pr-base-branch: "main"
-      pr-reviewers: JunaMeinhold
+      pr-reviewers: Detanup01
       pr-branch: mini_detour-artifacts
-      pr-manifest-path: mini_detour
+      pr-manifest-path: artifactpath/workflows_path.json

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <ImplicitUsing>enable</ImplicitUsing>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <Nullable>enable</Nullable>
+        <TrimMode>link</TrimMode>
+        <Platforms>AnyCPU;x86;x64</Platforms>
+	    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	    <IsAotCompatible>True</IsAotCompatible>
+	    <PublishAot>true</PublishAot>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <DirectPInvoke Include="mini_detour" />
+    </ItemGroup>
+</Project>
