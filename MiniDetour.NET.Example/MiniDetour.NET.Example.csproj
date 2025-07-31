@@ -14,7 +14,7 @@
 		<EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
 		<EnableAotAnalyzer>true</EnableAotAnalyzer>
 		<IsAotCompatible>true</IsAotCompatible>
-    </PropertyGroup>>
+    </PropertyGroup>
 
 	<ItemGroup>
         <ProjectReference Include="../MiniDetour.NET/MiniDetour.NET.csproj">
