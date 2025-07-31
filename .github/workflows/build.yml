@@ -29,7 +29,7 @@ jobs:
         global-json-file: ./global.json
 
     - name: Build DOTNET
-      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -o Out/DOTNET
+      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out/DOTNET
 
     - name: Build
       run: dotnet publish MiniDetour.NET/MiniDetour.NET.csproj --use-current-runtime -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out
@@ -41,7 +41,7 @@ jobs:
         path: Out/*
 
     - name: Build Example DOTNET
-      run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -o Out/DOTNET
+      run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out/DOTNET
 
     - name: Build Example
       run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj --use-current-runtime -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out
