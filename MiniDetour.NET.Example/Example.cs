@@ -19,7 +19,7 @@ public class Program
 
     static bool CanHook(IntPtr handle, IntPtr functionToHook)
     {
-        Console.WrieLine("yeys");
+        Console.WriteLine("yeys");
         return true;
     }
 }
