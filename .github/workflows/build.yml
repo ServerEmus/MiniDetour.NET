@@ -28,10 +28,7 @@ jobs:
         global-json-file: ./global.json
 
     - name: Build DOTNET
-      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -f ${{ matrix.framework }} -o Out/DOTNET
-
-    - name: Build
-      run: dotnet publish MiniDetour.NET/MiniDetour.NET.csproj --use-current-runtime -c:Release -f ${{ matrix.framework }} -o Out
+      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -f ${{ matrix.framework }} -o Out/Main
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5
@@ -40,10 +37,10 @@ jobs:
         path: Out/*
 
     - name: Build Example DOTNET
-      run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -f ${{ matrix.framework }} -o Out/DOTNET
+      run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DOTNET
 
     - name: Build Example
-      run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj --use-current-runtime -c:Release -f ${{ matrix.framework }} -o Out
+      run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj --use-current-runtime -p:PublishAot=true -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DLL
 
     - name : Upload Example
       uses: actions/upload-artifact@v4.3.5
