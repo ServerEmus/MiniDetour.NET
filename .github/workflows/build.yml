@@ -14,7 +14,6 @@ jobs:
     name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.framework }} Build
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         platform: [x32, x64]

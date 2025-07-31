@@ -10,7 +10,7 @@ public class Hook
     public bool CanHook(IntPtr function_to_hook)
         => HookNative.CanHook(handle, function_to_hook);
 
-    public IntPtr HookFunction(IntPtr function_to_hook, Delegate new_function)
+    public IntPtr HookFunction(IntPtr function_to_hook, Delegate _delegate)
         => HookFunction(function_to_hook, Marshal.GetFunctionPointerForDelegate(_delegate));
 
     public IntPtr HookFunction(IntPtr function_to_hook, IntPtr new_function)
@@ -25,7 +25,7 @@ public class Hook
     public IntPtr GetOriginalFunction()
         => HookNative.GetOriginalFunction(handle);
 
-    public static bool ReplaceFunction(IntPtr function_to_replace, IntPtr new_function)
+    public static bool ReplaceFunction(IntPtr function_to_replace, Delegate _delegate)
         => ReplaceFunction(function_to_replace, Marshal.GetFunctionPointerForDelegate(_delegate));
 
     public static bool ReplaceFunction(IntPtr function_to_replace, IntPtr new_function)
