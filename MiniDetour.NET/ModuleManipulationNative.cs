@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace MiniDetour;
 
-internal static class MemoryManipulationNative
+internal static class ModuleManipulationNative
 {
     [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationGetAllExportedSymbols", CallingConvention = CallingConvention.Cdecl)]
     public static extern UIntPtr GetAllExportedSymbols(
