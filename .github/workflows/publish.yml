@@ -23,6 +23,9 @@ jobs:
         global-json-file: ./global.json
 
     - name: Build
+      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -o Out/Build
+
+    - name: Build
       run: dotnet pack MiniDetour.NET/MiniDetour.NET.csproj -o Out
 
     - name : Upload
