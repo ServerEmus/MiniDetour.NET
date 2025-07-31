@@ -8,14 +8,14 @@ public class Hook
 {
     IntPtr handle { get; } = HookNative.Alloc();
 
-    public bool CanHook(IntPtr function_to_hook)
-        => HookNative.CanHook(handle, function_to_hook);
+    public bool CanHook(IntPtr functionToHook)
+        => HookNative.CanHook(handle, functionToHook);
 
-    public IntPtr HookFunction<TDelegate>(IntPtr function_to_hook, TDelegate _delegate) where TDelegate : notnull
-        => HookFunction(function_to_hook, Marshal.GetFunctionPointerForDelegate<TDelegate>(_delegate));
+    public IntPtr HookFunction<TDelegate>(IntPtr functionToHook, TDelegate tdelegate) where TDelegate : notnull
+        => HookFunction(functionToHook, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
 
-    public IntPtr HookFunction(IntPtr function_to_hook, IntPtr new_function)
-        => HookNative.HookFunction(handle, function_to_hook, new_function);
+    public IntPtr HookFunction(IntPtr functionToHook, IntPtr newFunction)
+        => HookNative.HookFunction(handle, functionToHook, newFunction);
     
     public IntPtr RestoreFunction()
         => HookNative.RestoreFunction(handle);
@@ -26,11 +26,11 @@ public class Hook
     public IntPtr GetOriginalFunction()
         => HookNative.GetOriginalFunction(handle);
 
-    public static bool ReplaceFunction<TDelegate>(IntPtr function_to_replace, TDelegate _delegate) where TDelegate : notnull
-        => ReplaceFunction(function_to_replace, Marshal.GetFunctionPointerForDelegate<TDelegate>(_delegate));
+    public static bool ReplaceFunction<TDelegate>(IntPtr functionToReplace, TDelegate tdelegate) where TDelegate : notnull
+        => ReplaceFunction(functionToReplace, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
 
-    public static bool ReplaceFunction(IntPtr function_to_replace, IntPtr new_function)
-        => HookNative.ReplaceFunction(function_to_replace, new_function);
+    public static bool ReplaceFunction(IntPtr functionToReplace, IntPtr newFunction)
+        => HookNative.ReplaceFunction(functionToReplace, newFunction);
 
     ~Hook()
     {
