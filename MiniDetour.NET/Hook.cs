@@ -15,7 +15,7 @@ public class Hook
         => HookNative.HookFunction(handle, function_to_hook, new_function);
     
     public IntPtr RestoreFunction()
-        => HookNative.RestoreFunction(handle);;
+        => HookNative.RestoreFunction(handle);
 
     public IntPtr GetHookFunction()
         => HookNative.GetHookFunction(handle);
