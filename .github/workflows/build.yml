@@ -1,5 +1,5 @@
 
-name: Build
+name: Build Platfrom
 
 on:
   push:
@@ -33,12 +33,6 @@ jobs:
     - name: Build DOTNET
       run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -f ${{ matrix.framework }} -o Out/Main
 
-    - name : Upload
-      uses: actions/upload-artifact@v4.3.5
-      with:
-        name: MiniDetour.NET-${{ matrix.os }}-${{ matrix.platform }}-${{ matrix.framework }}
-        path: Out/*
-
     - name: Build Example DOTNET
       run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DOTNET
 
@@ -48,5 +42,5 @@ jobs:
     - name : Upload Example
       uses: actions/upload-artifact@v4.3.5
       with:
-        name: Examples-${{ matrix.os }}-${{ matrix.platform }}-${{ matrix.framework }}
+        name: Build-${{ matrix.os }}-${{ matrix.platform }}-${{ matrix.framework }}
         path: Out/*

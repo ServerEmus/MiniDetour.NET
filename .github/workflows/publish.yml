@@ -1,0 +1,35 @@
+
+name: Publish
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+  workflow_dispatch:
+# allow manual trigger
+
+jobs:
+  build:
+    name: Publish Package
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: ./global.json
+
+    - name: Build
+      run: dotnet pack MiniDetour.NET/MiniDetour.NET.csproj -o Out
+
+    - name : Upload
+      uses: actions/upload-artifact@v4.3.5
+      with:
+        name: MiniDetour.NET
+        path: Out/*
