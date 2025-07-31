@@ -9,6 +9,6 @@ public static class Utils
     public static IntPtr PageRound(IntPtr address, UIntPtr pageSize)
         => UtilsNative.PageRound(address, pageSize);
 
-    public static UIntPtr PageSize())
-        => UtilsNative.PageSize());
+    public static UIntPtr PageSize()
+        => UtilsNative.PageSize();
 }

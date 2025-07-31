@@ -37,7 +37,7 @@ public static partial class MemoryManipulation
     public static bool SafeMemoryRead(
         IntPtr address,
         byte[] buffer,
-        UIntPtr size,
+        UIntPtr size
     )
     {
         int isize = (int)size;
