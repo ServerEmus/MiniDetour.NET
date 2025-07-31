@@ -1,3 +1,5 @@
+using System;
+
 namespace MiniDetour;
 
 // TODO: Disposable!
@@ -8,7 +10,7 @@ public class Hook
     public bool CanHook(IntPtr function_to_hook)
         => HookNative.CanHook(handle, function_to_hook);
 
-    public IntPtr HookFunction(IntPtr function_to_hook, System.Delegate new_function)
+    public IntPtr HookFunction(IntPtr function_to_hook, Delegate new_function)
         => HookFunction(function_to_hook, Marshal.GetFunctionPointerForDelegate(_delegate));
 
     public IntPtr HookFunction(IntPtr function_to_hook, IntPtr new_function)
@@ -24,7 +26,7 @@ public class Hook
         => HookNative.GetOriginalFunction(handle);
 
     public static bool ReplaceFunction(IntPtr function_to_replace, IntPtr new_function)
-        => HookFunction(function_to_replace, Marshal.GetFunctionPointerForDelegate(_delegate));
+        => ReplaceFunction(function_to_replace, Marshal.GetFunctionPointerForDelegate(_delegate));
 
     public static bool ReplaceFunction(IntPtr function_to_replace, IntPtr new_function)
         => HookNative.ReplaceFunction(function_to_replace, new_function);
