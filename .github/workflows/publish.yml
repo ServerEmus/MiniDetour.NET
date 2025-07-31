@@ -10,12 +10,9 @@ on:
 # allow manual trigger
 
 jobs:
-  build:
+  publish:
     name: Publish Package
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
