@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.prj }} Build
+    name: ${{ matrix.os }} ${{ matrix.platform }} ${{ matrix.framework }} Build
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -19,22 +19,30 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         platform: [x32, x64]
         framework: [net9.0, net8.0]
-        prj: [
-            "MiniDetour.NET",
-            "MiniDetour.NET.Example"
-          ]
 
     steps:
     - uses: actions/checkout@v4
 
     - name: Build DOTNET
-      run: dotnet build ${{ matrix.prj }}/${{ matrix.prj }}.csproj -c:Release -o Out/DOTNET
+      run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -o Out/DOTNET
 
     - name: Build
-      run: dotnet publish ${{ matrix.prj }}/${{ matrix.prj }}.csproj --use-current-runtime -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out
+      run: dotnet publish MiniDetour.NET/MiniDetour.NET.csproj --use-current-runtime -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out
 
     - name : Upload
       uses: actions/upload-artifact@v4.3.5
       with:
-        name: ${{ matrix.prj }}
+        name: MiniDetour.NET
+        path: Out/*
+
+    - name: Build Example DOTNET
+      run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -o Out/DOTNET
+
+    - name: Build Example
+      run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj --use-current-runtime -c:Release -p:Platform=${{ matrix.platform }} -f ${{ matrix.framework }} -o Out
+
+    - name : Upload Example
+      uses: actions/upload-artifact@v4.3.5
+      with:
+        name: Examples
         path: Out/*

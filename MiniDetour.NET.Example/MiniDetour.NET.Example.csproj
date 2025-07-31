@@ -17,6 +17,6 @@
     </PropertyGroup>
 
 	<ItemGroup>
-        <ProjectReference Include="../MiniDetour.NET/MiniDetour.NET.csproj">
+        <ProjectReference Include="../MiniDetour.NET/MiniDetour.NET.csproj" />
     </ItemGroup>
 </Project>
