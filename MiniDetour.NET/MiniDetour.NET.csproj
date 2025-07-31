@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-		<TargetFrameworks>net9.0;net8.0;net7.0;net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -18,8 +18,8 @@
 		<PackageVersion>1.1.4</PackageVersion>
 		<PackageTags></PackageTags>
 		<Authors>ServerEmus</Authors>
-		<PackageProjectUrl>https://github.dev/ServerEmus/mini_detour_DOTNET</PackageProjectUrl>
-		<RepositoryUrl>https://github.dev/ServerEmus/mini_detour_DOTNET</RepositoryUrl>
+		<PackageProjectUrl>https://github.dev/ServerEmus/MiniDetour.NET</PackageProjectUrl>
+		<RepositoryUrl>https://github.dev/ServerEmus/MiniDetour.NET</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

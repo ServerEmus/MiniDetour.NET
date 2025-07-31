@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <OutputType>Exe</OutputType>
+
+		<LangVersion>12</LangVersion>
+
+        <InvariantGlobalization>true</InvariantGlobalization>
+
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<EnableSingleFileAnalyzer>true</EnableSingleFileAnalyzer>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+		<IsAotCompatible>true</IsAotCompatible>
+    </PropertyGroup>>
+
+	<ItemGroup>
+        <ProjectReference Include="../MiniDetour.NET/MiniDetour.NET.csproj">
+    </ItemGroup>
+</Project>

@@ -10,7 +10,7 @@ jobs:
     uses: JunaMeinhold/cmake-actions/.github/workflows/cmake.yml@v1.x.x
     with:
       lib-name: mini_detour
-      repo-tag: feature/shared-library
+      repo-tag: v1.1.4
       repo: Nemirtingas/mini_detour
       cmake-flags: -DBUILD_SHARED_LIBS=ON -DMINIDETOUR_DYNAMIC_RUNTIME=OFF -DMINIDETOUR_BUILD_TESTS=OFF
       bin-name-linux: libmini_detour.so
