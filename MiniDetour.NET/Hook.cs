@@ -9,7 +9,7 @@ public class Hook
         => HookNative.CanHook(handle, function_to_hook);
 
     public IntPtr HookFunction(IntPtr function_to_hook, System.Delegate new_function)
-        => return HookFunction(function_to_hook, Marshal.GetFunctionPointerForDelegate(_delegate));
+        => HookFunction(function_to_hook, Marshal.GetFunctionPointerForDelegate(_delegate));
 
     public IntPtr HookFunction(IntPtr function_to_hook, IntPtr new_function)
         => HookNative.HookFunction(handle, function_to_hook, new_function);
@@ -33,7 +33,7 @@ public class Hook
     {
         if (handle == IntPtr.Zero)
             return;
-        HookNative.Free(handle)
+        HookNative.Free(handle);
         handle = IntPtr.Zero;
     }
 }
