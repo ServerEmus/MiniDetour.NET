@@ -23,6 +23,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        global-json-file: ./global.json
+
     - name: Build DOTNET
       run: dotnet build MiniDetour.NET/MiniDetour.NET.csproj -c:Release -o Out/DOTNET
 
