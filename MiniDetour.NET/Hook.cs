@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace MiniDetour;
 
@@ -36,6 +37,5 @@ public class Hook
         if (handle == IntPtr.Zero)
             return;
         HookNative.Free(handle);
-        handle = IntPtr.Zero;
     }
 }
