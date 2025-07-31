@@ -18,6 +18,9 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         platform: [x32, x64]
         framework: [net9.0, net8.0]
+        exclude:
+        - os: macos-latest
+          platform: x32
 
     steps:
     - uses: actions/checkout@v4
@@ -40,7 +43,7 @@ jobs:
       run: dotnet build MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DOTNET
 
     - name: Build Example
-      run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj --use-current-runtime -p:PublishAot=true -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DLL
+      run: dotnet publish MiniDetour.NET.Example/MiniDetour.NET.Example.csproj -p:PublishAot=true -v:n -c:Release -f ${{ matrix.framework }} -o Out/EXAMPLE/DLL --use-current-runtime
 
     - name : Upload Example
       uses: actions/upload-artifact@v4.3.5
