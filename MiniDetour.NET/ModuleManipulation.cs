@@ -11,7 +11,7 @@ public static partial class ModuleManipulation
         out ExportDetails[] exportDetails
     )
     {
-        exportDetails = new[(int)exportDetailsCount];
+        exportDetails = new ExportDetails[(int)exportDetailsCount];
         return ModuleManipulationNative.GetAllExportedSymbols(moduleHandle, exportDetails, exportDetailsCount);
     }
 
@@ -21,7 +21,7 @@ public static partial class ModuleManipulation
         out IATDetails[] iatDetails
     )
     {
-        iatDetails = new[(int)iatDetailsCount];
+        iatDetails = new IATDetails[(int)iatDetailsCount];
         return ModuleManipulationNative.GetAllIATSymbols(moduleHandle, iatDetails, iatDetailsCount);
     }
 
@@ -34,7 +34,7 @@ public static partial class ModuleManipulation
 
     public static UIntPtr ReplaceModuleExports(
         IntPtr moduleHandle,
-        List<ExportReplaceParameter> exportReplaceDetails,
+        List<ExportReplaceParameter> exportReplaceDetails
     )
         => ReplaceModuleExports(moduleHandle, exportReplaceDetails.ToArray(), (UIntPtr)exportReplaceDetails.Count);
 
@@ -47,7 +47,7 @@ public static partial class ModuleManipulation
 
     public static UIntPtr RestoreModuleExports(
         IntPtr moduleHandle,
-        List<ExportReplaceParameter> exportReplaceDetails,
+        List<ExportReplaceParameter> exportReplaceDetails
     )
         => RestoreModuleExports(moduleHandle, exportReplaceDetails.ToArray(), (UIntPtr)exportReplaceDetails.Count);
 
@@ -60,7 +60,7 @@ public static partial class ModuleManipulation
 
     public static UIntPtr ReplaceModuleIATs(
         IntPtr moduleHandle,
-        List<IATReplaceParameter> iatReplaceDetails,
+        List<IATReplaceParameter> iatReplaceDetails
     )
         => ReplaceModuleIATs(moduleHandle, exportReplaceDetails.ToArray(), (UIntPtr)exportReplaceDetails.Count);
 
@@ -73,7 +73,7 @@ public static partial class ModuleManipulation
 
     public static UIntPtr RestoreModuleIATs(
         IntPtr moduleHandle,
-        List<IATReplaceParameter> iatReplaceDetails,
+        List<IATReplaceParameter> iatReplaceDetails
     )
         => RestoreModuleIATs(moduleHandle, iatReplaceDetails.ToArray(), (UIntPtr)iatReplaceDetails.Count);
 
