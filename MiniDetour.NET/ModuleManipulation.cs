@@ -63,7 +63,7 @@ public static partial class ModuleManipulation
         IntPtr moduleHandle,
         List<IATReplaceParameter> iatReplaceDetails
     )
-        => ReplaceModuleIATs(moduleHandle, exportReplaceDetails.ToArray(), (UIntPtr)exportReplaceDetails.Count);
+        => ReplaceModuleIATs(moduleHandle, iatReplaceDetails.ToArray(), (UIntPtr)iatReplaceDetails.Count);
 
     public static UIntPtr RestoreModuleIATs(
         IntPtr moduleHandle,
