@@ -8,7 +8,7 @@ namespace MiniDetour;
 
 public static unsafe partial class MiniDetourLoader
 {
-    internal enum FuncTableFunction
+    public enum FuncTableFunction
     {
         // Hooks
         MiniDetourHookTAlloc,
