@@ -8,30 +8,30 @@ public static partial class MemoryManipulation
    public static bool MemoryProtect(
         IntPtr address,
         UIntPtr size,
-        MemoryManipulation.MemoryRights rights,
-        out MemoryManipulation.MemoryRights old_rights
+        MemoryRights rights,
+        out MemoryRights old_rights
     )
-        => MemoryManipulationNative.MemoryProtect(address, size, rights, out old_rights);
+        => MiniDetourLoader.MemoryManipulation_MemoryProtect(address, size, rights, out old_rights);
 
     public static void MemoryFree(
         IntPtr address,
         UIntPtr size
     )
-        => MemoryManipulationNative.MemoryFree(address, size);
+        => MiniDetourLoader.MemoryManipulation_MemoryFree(address, size);
 
     public static IntPtr MemoryAlloc(
         IntPtr addressHint,
         UIntPtr size,
-        MemoryManipulation.MemoryRights rights
+        MemoryRights rights
     )
-        => MemoryManipulationNative.MemoryAlloc(addressHint, size, rights);
+        => MiniDetourLoader.MemoryManipulation_MemoryAlloc(addressHint, size, rights);
 
     public static bool SafeMemoryRead(
         IntPtr address,
         IntPtr buffer,
         UIntPtr size
     )
-        => MemoryManipulationNative.SafeMemoryRead(address, buffer, size);
+        => MiniDetourLoader.MemoryManipulation_SafeMemoryRead(address, buffer, size);
     
     public static bool SafeMemoryRead(
         IntPtr address,
@@ -51,7 +51,7 @@ public static partial class MemoryManipulation
         IntPtr buffer,
         UIntPtr size
     )
-        => MemoryManipulationNative.SafeMemoryWrite(address, buffer, size);
+        => MiniDetourLoader.MemoryManipulation_SafeMemoryWrite(address, buffer, size);
     
     public static bool SafeMemoryWrite(
         IntPtr address,
@@ -70,11 +70,11 @@ public static partial class MemoryManipulation
         IntPtr address,
         IntPtr destination
     )
-        => MemoryManipulationNative.WriteAbsoluteJump(address, destination);
+        => MiniDetourLoader.MemoryManipulation_WriteAbsoluteJump(address, destination);
 
     public static int FlushInstructionCache(
         IntPtr address,
         UIntPtr size
     )
-        => MemoryManipulationNative.FlushInstructionCache(address, size);
+        => MiniDetourLoader.MemoryManipulation_FlushInstructionCache(address, size);
 }

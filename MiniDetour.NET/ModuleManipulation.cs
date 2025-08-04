@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MiniDetour;
-
+/*
 public static partial class ModuleManipulation
 {
     public static UIntPtr GetAllExportedSymbols(
@@ -77,6 +77,5 @@ public static partial class ModuleManipulation
         List<IATReplaceParameter> iatReplaceDetails
     )
         => RestoreModuleIATs(moduleHandle, iatReplaceDetails.ToArray(), (UIntPtr)iatReplaceDetails.Count);
-
-
 }
+*/

@@ -28,9 +28,12 @@ public static unsafe partial class MiniDetourLoader
         MiniDetourMemoryManipulationSafeMemoryWrite,
         MiniDetourMemoryManipulationWriteAbsoluteJump,
         MiniDetourMemoryManipulationFlushInstructionCache,
-        
+
         // ModuleManipulation
 
         // Utils
+        MiniDetourUtilsPageRoundUp,
+        MiniDetourUtilsPageRound,
+        MiniDetourUtilsPageSize,
     }
 }

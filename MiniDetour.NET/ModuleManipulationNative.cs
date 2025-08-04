@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace MiniDetour;
-
+/*
 internal static class ModuleManipulationNative
 {
     [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationGetAllExportedSymbols", CallingConvention = CallingConvention.Cdecl)]
@@ -47,3 +47,4 @@ internal static class ModuleManipulationNative
         UIntPtr iatReplaceDetailsCount
     );
 }
+*/
