@@ -21,18 +21,12 @@ public unsafe class Program
         CanHookDelegate d = new CanHookDelegate(CanHook);
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
+            Thread.Sleep(200);
             Console.WriteLine(canHookPtr);
             Console.WriteLine(testHook.CanHook(canHookPtr));
             if (!testHook.CanHook(canHookPtr))
             {
                 Console.WriteLine("Cannot hook the original CanHook!");
-                return;
-            }
-            Console.WriteLine(ptr);
-            Console.WriteLine(testHook.CanHook(ptr));
-            if (!testHook.CanHook(ptr))
-            {
-                Console.WriteLine("Cannot hook the CanHook Delegate!");
                 return;
             }
             IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
