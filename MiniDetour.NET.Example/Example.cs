@@ -53,7 +53,7 @@ public unsafe class Program
 
         if (d.Target is {} || !method.IsStatic || method is DynamicMethod)
         {
-            pointer = null;
+            pointer = IntPtr.Zero;
             return false;
         }
 
