@@ -15,12 +15,15 @@ public class Program
 
     public static void Main(string[] _)
     {
+        PrintModules();
         Console.WriteLine("testHook");
         Hook testHook = new();
+        PrintModules();
         IntPtr detour = GetBaseAddressFrom("mini_detour");
+        PrintModules();
         Console.WriteLine("loaded lib");
         Console.WriteLine(detour);
-        IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
+        IntPtr canHookPtr = MiniDetourLoader.funcTable[(int)FuncTableFunction.MiniDetourHookTCanHook];
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
@@ -50,5 +53,15 @@ public class Program
         if (module == null)
             return IntPtr.Zero;
         return module.BaseAddress;
+    }
+
+    static void PrintModules()
+    {
+        Process CachedProcess = Process.GetCurrentProcess();
+        CachedProcess.Refresh();
+        for (int i = 0; i < myProcessModuleCollection.Count; i++)
+        {
+            Console.WriteLine(myProcessModuleCollection[i].ModuleName);
+        }
     }
 }

@@ -123,7 +123,9 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr exportDetailsCount
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, exportDetails, exportDetailsCount);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])
+        (moduleHandle, exportDetails, exportDetailsCount);
     }
 
     public static UIntPtr ModuleManipulation_GetAllIATSymbols(
@@ -132,7 +134,9 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr iatDetailsCount
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllIATSymbols])(moduleHandle, iatDetails, iatDetailsCount);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationGetAllIATSymbols])
+        (moduleHandle, iatDetails, iatDetailsCount);
     }
 
     public static UIntPtr ModuleManipulation_ReplaceModuleExports(
@@ -141,7 +145,9 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr exportReplaceDetailsCount
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleExports])
+        (moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
     }
 
     public static UIntPtr ModuleManipulation_RestoreModuleExports(
@@ -150,7 +156,9 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr exportReplaceDetailsCount
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExport])
+        (moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
     }
 
     public static UIntPtr ModuleManipulation_ReplaceModuleIATs(
