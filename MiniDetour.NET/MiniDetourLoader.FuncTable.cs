@@ -15,7 +15,7 @@ public static unsafe partial class MiniDetourLoader
     /// </summary>
     public static void InitApi(INativeContext context)
     {
-        funcTable = new FunctionTable(context, ());
+        funcTable = new FunctionTable(context, (int)FuncTableFunction.MAX);
         // Hook
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTAlloc, "MiniDetourHookTAlloc");
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTFree, "MiniDetourHookTFree");
