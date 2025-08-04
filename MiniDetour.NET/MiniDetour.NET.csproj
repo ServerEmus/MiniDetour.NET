@@ -26,6 +26,10 @@
     </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="HexaGen.Runtime" Version="1.1.21" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="native\android-arm64\*.so">
 			<Link>runtimes\android-arm64\native\%(RecursiveDir)%(Filename)%(Extension)</Link>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
