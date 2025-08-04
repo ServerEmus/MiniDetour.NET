@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Linq;
 using MiniDetour;
 
 public class Program
@@ -28,14 +29,11 @@ public class Program
         return true;
     }
 
-    static List<ProcessModule> ProcessModules { get; } = [];
-    static Process CachedProcess { get; }
-
     static IntPtr GetBaseAddressFrom(string moduleName)
     {
-        CachedProcess = Process.GetCurrentProcess();
+        Process CachedProcess = Process.GetCurrentProcess();
         CachedProcess.Refresh();
-        ProcessModules.Clear();
+        List<ProcessModule> ProcessModules = [];
         ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
         for (int i = 0; i < myProcessModuleCollection.Count; i++)
         {
