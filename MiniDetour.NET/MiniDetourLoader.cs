@@ -1,7 +1,8 @@
 using HexaGen.Runtime;
 using System.Diagnostics;
 
-using MiniDetour;
+namespace MiniDetour;
+namespace MiniDetour;
 
 public static class MiniDetourLoaderConfig
 {
@@ -14,11 +15,11 @@ public static unsafe partial class MiniDetourLoader
     {
         if (MiniDetourLoaderConfig.AotStaticLink)
         {
-            MiniDetourLoader.InitApi(new NativeLibraryContext(Process.GetCurrentProcess().MainModule!.BaseAddress));
+            InitApi(new NativeLibraryContext(Process.GetCurrentProcess().MainModule!.BaseAddress));
         }
         else
         {
-            MiniDetourLoader.InitApi(new NativeLibraryContext(LibraryLoader.LoadLibrary(GetLibraryName, null)));
+            InitApi(new NativeLibraryContext(LibraryLoader.LoadLibrary(GetLibraryName, null)));
         }
     }
 

@@ -9,6 +9,7 @@ namespace MiniDetour;
 public static unsafe partial class MiniDetourLoader
 {
     delegate IntPtr IntPtrVoidDelegate();
+    delegate UIntPtr UIntPtrVoidDelegate();
 
     public static IntPtr Hook_Alloc()
     {
@@ -116,53 +117,64 @@ public static unsafe partial class MiniDetourLoader
     }
 
 
-    public static UIntPtr GetAllExportedSymbols(
+    public static UIntPtr ModuleManipulation_GetAllExportedSymbols(
         IntPtr moduleHandle,
-        ModuleManipulation.ExportDetails[] exportDetails,
+        IntPtr exportDetails,
         UIntPtr exportDetailsCount
     )
     {
-        fixed (ModuleManipulation.ExportDetails* ptr = exportDetails)
-        {
-            return ((delegate* unmanaged[Cdecl]<IntPtr, ModuleManipulation.ExportDetails*, UIntPtr,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, ptr, exportDetailsCount);
-        }
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, exportDetails, exportDetailsCount);
     }
-/*
-    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationGetAllIATSymbols", CallingConvention = CallingConvention.Cdecl)]
-    public static extern UIntPtr GetAllIATSymbols(
+
+    public static extern UIntPtr ModuleManipulation_GetAllIATSymbols(
         IntPtr moduleHandle,
-        ModuleManipulation.IATDetails[] iatDetails,
+        IntPtr iatDetails,
         UIntPtr iatDetailsCount
-    );
+    )
+    {
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllIATSymbols])(moduleHandle, iatDetails, iatDetailsCount);
+    }
 
-    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationReplaceModuleExports", CallingConvention = CallingConvention.Cdecl)]
-    public static extern UIntPtr ReplaceModuleExports(
+    public static extern UIntPtr ModuleManipulation_ReplaceModuleExports(
         IntPtr moduleHandle,
-        ModuleManipulation.ExportReplaceParameter[] exportReplaceDetails,
+        IntPtr exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
-    );
+    )
+    {
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+    }
 
-    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationRestoreModuleExports", CallingConvention = CallingConvention.Cdecl)]
-    public static extern UIntPtr RestoreModuleExports(
+    public static extern UIntPtr ModuleManipulation_RestoreModuleExports(
         IntPtr moduleHandle,
-        ModuleManipulation.ExportReplaceParameter[] exportReplaceDetails,
+        IntPtr exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
-    );
+    )
+    {
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+    }
 
-    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationReplaceModuleIATs", CallingConvention = CallingConvention.Cdecl)]
-    public static extern UIntPtr ReplaceModuleIATs(
+    public static extern UIntPtr ModuleManipulation_ReplaceModuleIATs(
         IntPtr moduleHandle,
-        ModuleManipulation.IATReplaceParameter[] iatReplaceDetails,
+        IntPtr iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount
-    );
+    )
+    {
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleIATs])
+        (moduleHandle, iatReplaceDetails, iatReplaceDetailsCount);
+    }
 
-    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationRestoreModuleIATs", CallingConvention = CallingConvention.Cdecl)]
-    public static extern UIntPtr RestoreModuleIATs(
+    public static extern UIntPtr ModuleManipulation_RestoreModuleIATs(
         IntPtr moduleHandle,
-        ModuleManipulation.IATReplaceParameter[] iatReplaceDetails,
+        IntPtr iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount
-    );
-*/
+    )
+    {
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
+        [(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleIATs])
+        (moduleHandle, iatReplaceDetails, iatReplaceDetailsCount);
+    }
+
     internal static IntPtr Utils_PageRoundUp(IntPtr address, UIntPtr pageSize)
     {
         return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageRoundUp])(address, pageSize);
@@ -175,7 +187,7 @@ public static unsafe partial class MiniDetourLoader
 
     internal static UIntPtr Utils_PageSize()
     {
-        IntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<IntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize]);
+        UIntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<UIntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize]);
         return d();
     }
 }
