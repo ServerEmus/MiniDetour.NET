@@ -18,15 +18,15 @@ public unsafe class Program
         PrintModules();
         Console.WriteLine("testHook");
         Hook testHook = new();
+        Console.WriteLine(testHook.Handle);
         PrintModules();
-        IntPtr detour = GetBaseAddressFrom("mini_detour");
-        PrintModules();
-        Console.WriteLine("loaded lib");
-        Console.WriteLine(detour);
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
-        IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
+        var ptr = Marshal.GetFunctionPointerForDelegate<CanHookDelegate>(CanHook);
+        Console.WriteLine("GetFunctionPointerForDelegate");
+        Console.WriteLine(ptr);
+        IntPtr hookedFuncPtr = testHook.HookFunction<CanHookDelegate>(canHookPtr, new CanHookDelegate(CanHook));
         Console.WriteLine("hookedFuncPtr");
         Console.WriteLine(hookedFuncPtr);
         testHook.CanHook(IntPtr.Zero);
@@ -61,6 +61,7 @@ public unsafe class Program
         ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
         for (int i = 0; i < myProcessModuleCollection.Count; i++)
         {
+            Console.WriteLine(myProcessModuleCollection[i].FileName);
             Console.WriteLine(myProcessModuleCollection[i].ModuleName);
         }
         CachedProcess.Refresh();

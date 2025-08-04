@@ -6,25 +6,25 @@ namespace MiniDetour;
 // TODO: Disposable!
 public class Hook 
 {
-    IntPtr handle { get; } = MiniDetourLoader.Hook_Alloc();
+    public IntPtr Handle { get; } = MiniDetourLoader.Hook_Alloc();
 
     public bool CanHook(IntPtr functionToHook)
-        => MiniDetourLoader.Hook_CanHook(handle, functionToHook);
+        => MiniDetourLoader.Hook_CanHook(Handle, functionToHook);
 
     public IntPtr HookFunction<TDelegate>(IntPtr functionToHook, TDelegate tdelegate) where TDelegate : notnull
         => HookFunction(functionToHook, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
 
     public IntPtr HookFunction(IntPtr functionToHook, IntPtr newFunction)
-        => MiniDetourLoader.Hook_HookFunction(handle, functionToHook, newFunction);
+        => MiniDetourLoader.Hook_HookFunction(Handle, functionToHook, newFunction);
     
     public IntPtr RestoreFunction()
-        => MiniDetourLoader.Hook_RestoreFunction(handle);
+        => MiniDetourLoader.Hook_RestoreFunction(Handle);
 
     public IntPtr GetHookFunction()
-        => MiniDetourLoader.Hook_GetHookFunction(handle);
+        => MiniDetourLoader.Hook_GetHookFunction(Handle);
 
     public IntPtr GetOriginalFunction()
-        => MiniDetourLoader.Hook_GetOriginalFunction(handle);
+        => MiniDetourLoader.Hook_GetOriginalFunction(Handle);
 
     public static bool ReplaceFunction<TDelegate>(IntPtr functionToReplace, TDelegate tdelegate) where TDelegate : notnull
         => ReplaceFunction(functionToReplace, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
@@ -34,8 +34,8 @@ public class Hook
 
     ~Hook()
     {
-        if (handle == IntPtr.Zero)
+        if (Handle == IntPtr.Zero)
             return;
-        MiniDetourLoader.Hook_Free(handle);
+        MiniDetourLoader.Hook_Free(Handle);
     }
 }
