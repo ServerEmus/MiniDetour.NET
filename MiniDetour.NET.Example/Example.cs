@@ -64,7 +64,7 @@ public unsafe class Program
             Console.WriteLine(myProcessModuleCollection[i].ModuleName);
         }
         CachedProcess.Refresh();
-        ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
+        myProcessModuleCollection = CachedProcess.Modules;
         for (int i = 0; i < myProcessModuleCollection.Count; i++)
         {
             Console.WriteLine(myProcessModuleCollection[i].ModuleName);
