@@ -157,7 +157,7 @@ public static unsafe partial class MiniDetourLoader
     )
     {
         return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable
-        [(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExport])
+        [(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExports])
         (moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
     }
 
