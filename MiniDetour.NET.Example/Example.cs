@@ -21,7 +21,6 @@ public unsafe class Program
         CanHookDelegate d = new CanHookDelegate(CanHook);
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
-            Thread.Sleep(200);
             Console.WriteLine(canHookPtr);
             Console.WriteLine(testHook.CanHook(canHookPtr));
             if (!testHook.CanHook(canHookPtr))
