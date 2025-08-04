@@ -12,7 +12,7 @@ public class Program
 
     public static void Main(string[] _)
     {
-        IntPtr detour = NativeLibrary.Load(getLibName(), Assembly.GetEntryAssembly(), DllImportSearchPath.ApplicationDirectory);
+        IntPtr detour = NativeLibrary.Load(getLibName());
         IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
         Hook testHook = new();
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
@@ -28,6 +28,6 @@ public class Program
     static string getLibName()
     {
         string platform = RuntimeInformation.RuntimeIdentifier;
-        return Path.Combine(platform, "mini_detour");
+        return Path.Combine(Directory.GetCurrentDirectory(),  platform, "mini_detour");
     }
 }
