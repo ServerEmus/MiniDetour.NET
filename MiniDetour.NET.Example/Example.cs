@@ -16,28 +16,25 @@ public unsafe class Program
 
     public static void Main(string[] _)
     {
-        PrintModules();
-        Console.WriteLine("testHook");
         Hook testHook = new();
-        Console.WriteLine(testHook.Handle);
-        PrintModules();
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
-        Console.WriteLine("GetExport");
-        Console.WriteLine(canHookPtr);
         CanHookDelegate d = new CanHookDelegate(CanHook);
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
-            Console.WriteLine("GetFunctionPointerForDelegate");
-            Console.WriteLine(ptr);
-            Console.WriteLine("CanHookToCanHookPtr");
-            Console.WriteLine(testHook.CanHook(canHookPtr)); 
-            Console.WriteLine("CanHookToPtr");
-            Console.WriteLine(testHook.CanHook(ptr));
+            if (testHook.CanHook(ptr))
+            {
+                Console.WriteLine("Cannot hook the CanHook Delegate!");
+                return;
+            }
+            if (testHook.CanHook(canHookPtr))
+            {
+                Console.WriteLine("Cannot hook the original CanHook!");
+                return;
+            }
             IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
-            Console.WriteLine("hookedFuncPtr");
-            Console.WriteLine(hookedFuncPtr);
             if (hookedFuncPtr == IntPtr.Zero)
             {
+                Console.WriteLine("Could not hook this!");
                 testHook.RestoreFunction();
                 return;
             }
@@ -71,39 +68,5 @@ public unsafe class Program
     {
         Console.WriteLine("yeys");
         return true;
-    }
-
-    static IntPtr GetBaseAddressFrom(string moduleName)
-    {
-        Process CachedProcess = Process.GetCurrentProcess();
-        CachedProcess.Refresh();
-        List<ProcessModule> ProcessModules = [];
-        ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
-        for (int i = 0; i < myProcessModuleCollection.Count; i++)
-        {
-            Console.WriteLine(myProcessModuleCollection[i].ModuleName);
-            ProcessModules.Add(myProcessModuleCollection[i]);
-        }
-        ProcessModule? module = ProcessModules.FirstOrDefault(x => x.ModuleName.Contains(moduleName, StringComparison.InvariantCultureIgnoreCase));
-        if (module == null)
-            return IntPtr.Zero;
-        return module.BaseAddress;
-    }
-
-    static void PrintModules()
-    {
-        Process CachedProcess = Process.GetCurrentProcess();
-        ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
-        for (int i = 0; i < myProcessModuleCollection.Count; i++)
-        {
-            Console.WriteLine(myProcessModuleCollection[i].FileName);
-            Console.WriteLine(myProcessModuleCollection[i].ModuleName);
-        }
-        CachedProcess.Refresh();
-        myProcessModuleCollection = CachedProcess.Modules;
-        for (int i = 0; i < myProcessModuleCollection.Count; i++)
-        {
-            Console.WriteLine(myProcessModuleCollection[i].ModuleName);
-        }
     }
 }
