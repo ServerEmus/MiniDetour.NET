@@ -25,7 +25,6 @@ public unsafe class Program
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
         CanHookDelegate d = new CanHookDelegate(CanHook);
-        GCHandle dgc = GCHandle.Alloc(d, GCHandleType.Pinned);
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
             Console.WriteLine("GetFunctionPointerForDelegate");
