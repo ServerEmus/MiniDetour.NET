@@ -44,5 +44,5 @@ jobs:
     - name: Run Example
       run: |
         cd Out/EXAMPLE/DOTNET 
-        .\MiniDetour.NET.Example
+        dotnet MiniDetour.NET.Example.dll
 
