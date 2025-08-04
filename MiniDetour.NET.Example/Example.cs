@@ -58,6 +58,11 @@ public unsafe class Program
     static void PrintModules()
     {
         Process CachedProcess = Process.GetCurrentProcess();
+        ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
+        for (int i = 0; i < myProcessModuleCollection.Count; i++)
+        {
+            Console.WriteLine(myProcessModuleCollection[i].ModuleName);
+        }
         CachedProcess.Refresh();
         ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
         for (int i = 0; i < myProcessModuleCollection.Count; i++)
