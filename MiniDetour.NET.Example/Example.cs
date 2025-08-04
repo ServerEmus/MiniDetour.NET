@@ -36,12 +36,20 @@ public unsafe class Program
             IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
             Console.WriteLine("hookedFuncPtr");
             Console.WriteLine(hookedFuncPtr);
-            testHook.CanHook(IntPtr.Zero);
+            if (hookedFuncPtr == IntPtr.Zero)
+            {
+                testHook.RestoreFunction();
+                return;
+            }
+            Console.WriteLine(testHook.CanHook(ptr));
+
         }
         else
         {
             Console.WriteLine("we are sad");
         }
+        testHook.RestoreFunction();
+        Console.WriteLine(testHook.Handle);
     }
 
     static bool TryGetFunctionPointer(Delegate d, out IntPtr pointer)
