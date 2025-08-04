@@ -22,11 +22,14 @@ public unsafe class Program
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
             Console.WriteLine(canHookPtr);
+            Console.WriteLine(testHook.CanHook(canHookPtr));
             if (!testHook.CanHook(canHookPtr))
             {
                 Console.WriteLine("Cannot hook the original CanHook!");
                 return;
             }
+            Console.WriteLine(ptr);
+            Console.WriteLine(testHook.CanHook(ptr));
             if (!testHook.CanHook(ptr))
             {
                 Console.WriteLine("Cannot hook the CanHook Delegate!");
@@ -67,7 +70,7 @@ public unsafe class Program
 
     static bool CanHook(IntPtr handle, IntPtr functionToHook)
     {
-        Console.WriteLine("yeys");
+        Console.WriteLine("CanHook Detour!");
         return true;
     }
 }
