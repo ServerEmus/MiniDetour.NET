@@ -8,9 +8,12 @@ namespace MiniDetour;
 
 public static unsafe partial class MiniDetourLoader
 {
+    delegate IntPtr AllocDelegate();
+
     public static IntPtr Hook_Alloc()
     {
-        return ((delegate* unmanaged[Cdecl]<void, IntPtr>)funcTable[FuncTableFunction.MiniDetourHookTAlloc])();
+        AllocDelegate d = Marshal.GetDelegateForFunctionPointer<AllocDelegate>(funcTable[FuncTableFunction.MiniDetourHookTAlloc]);
+        return d();
     }
 
     public static void Hook_Free(IntPtr handle)
@@ -111,17 +114,17 @@ public static unsafe partial class MiniDetourLoader
 
 
 
-    internal static extern IntPtr Utils_PageRoundUp(IntPtr address, UIntPtr pageSize)
+    internal static IntPtr Utils_PageRoundUp(IntPtr address, UIntPtr pageSize)
     {
         return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageRoundUp])(address, pageSize);
     }
 
-    internal static extern IntPtr Utils_PageRound(IntPtr address, UIntPtr pageSize)
+    internal static IntPtr Utils_PageRound(IntPtr address, UIntPtr pageSize)
     {
         return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageRound])(address, pageSize);
     }
 
-    internal static extern UIntPtr Utils_PageSize()
+    internal static UIntPtr Utils_PageSize()
     {
         return ((delegate* unmanaged[Cdecl]<void, UIntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageSize])();
     }
