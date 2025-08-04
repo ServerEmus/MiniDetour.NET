@@ -26,6 +26,7 @@
     </PropertyGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="MiniDetour.NET.Example" /> 
 		<PackageReference Include="HexaGen.Runtime" Version="1.1.21" />
 	</ItemGroup>
 

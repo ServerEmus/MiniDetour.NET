@@ -22,6 +22,7 @@ jobs:
       bin-name-android: libmini_detour.so
       bin-name-android-normalized: libmini_detour.so
       enable-android: false
+      enable-macos: false
 
   create-pr:
     needs: [mini_detour_build]

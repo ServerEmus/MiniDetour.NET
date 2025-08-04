@@ -16,17 +16,19 @@ public unsafe class Program
 
     public static void Main(string[] _)
     {
+        ModuleManipulation
+
         Hook testHook = new();
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         CanHookDelegate d = new CanHookDelegate(CanHook);
         if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
-            if (testHook.CanHook(ptr))
+            if (!testHook.CanHook(ptr))
             {
                 Console.WriteLine("Cannot hook the CanHook Delegate!");
                 return;
             }
-            if (testHook.CanHook(canHookPtr))
+            if (!testHook.CanHook(canHookPtr))
             {
                 Console.WriteLine("Cannot hook the original CanHook!");
                 return;

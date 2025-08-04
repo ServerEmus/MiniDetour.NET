@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MiniDetour;
-/*
+
 public static partial class ModuleManipulation
 {
     public static UIntPtr GetAllExportedSymbols(
@@ -13,7 +13,10 @@ public static partial class ModuleManipulation
     )
     {
         exportDetails = new ExportDetails[(int)exportDetailsCount];
-        return ModuleManipulationNative.GetAllExportedSymbols(moduleHandle, exportDetails, exportDetailsCount);
+        var gc = GCHandle.Alloc(exportDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_GetAllExportedSymbols(moduleHandle, gc.AddrOfPinnedObject(), exportDetailsCount);
+        gc.Free();
+        return ret;
     }
 
     public static UIntPtr GetAllIATSymbols(
@@ -23,7 +26,10 @@ public static partial class ModuleManipulation
     )
     {
         iatDetails = new IATDetails[(int)iatDetailsCount];
-        return ModuleManipulationNative.GetAllIATSymbols(moduleHandle, iatDetails, iatDetailsCount);
+        var gc = GCHandle.Alloc(iatDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), iatDetailsCount);
+        gc.Free();
+        return ret;
     }
 
     public static UIntPtr ReplaceModuleExports(
@@ -31,7 +37,13 @@ public static partial class ModuleManipulation
         ExportReplaceParameter[] exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
     )
-        => ModuleManipulationNative.ReplaceModuleExports(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+    {
+        exportReplaceDetails = new IATDetails[(int)iatDetailsCount];
+        var gc = GCHandle.Alloc(exportReplaceDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_ReplaceModuleExports(moduleHandle, gc.AddrOfPinnedObject(), exportReplaceDetailsCount);
+        gc.Free();
+        return ret;
+    }
 
     public static UIntPtr ReplaceModuleExports(
         IntPtr moduleHandle,
@@ -44,7 +56,13 @@ public static partial class ModuleManipulation
         ExportReplaceParameter[] exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
     )
-        => ModuleManipulationNative.RestoreModuleExports(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
+    {
+        exportReplaceDetails = new IATDetails[(int)exportReplaceDetailsCount];
+        var gc = GCHandle.Alloc(exportReplaceDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), exportReplaceDetailsCount);
+        gc.Free();
+        return ret;
+    }
 
     public static UIntPtr RestoreModuleExports(
         IntPtr moduleHandle,
@@ -57,7 +75,13 @@ public static partial class ModuleManipulation
         IATReplaceParameter[] iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount
     )
-        => ModuleManipulationNative.ReplaceModuleIATs(moduleHandle, iatReplaceDetails, iatReplaceDetailsCount);
+    {
+        iatReplaceDetails = new IATDetails[(int)iatReplaceDetailsCount];
+        var gc = GCHandle.Alloc(iatReplaceDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), iatReplaceDetailsCount);
+        gc.Free();
+        return ret;
+    }
 
     public static UIntPtr ReplaceModuleIATs(
         IntPtr moduleHandle,
@@ -70,7 +94,13 @@ public static partial class ModuleManipulation
         IATReplaceParameter[] iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount
     )
-        => ModuleManipulationNative.RestoreModuleIATs(moduleHandle, iatReplaceDetails, iatReplaceDetailsCount);
+    {
+        iatReplaceDetails = new IATDetails[(int)iatReplaceDetailsCount];
+        var gc = GCHandle.Alloc(iatReplaceDetails, GCHandleType.Pinned);
+        var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), iatReplaceDetailsCount);
+        gc.Free();
+        return ret;
+    }
 
     public static UIntPtr RestoreModuleIATs(
         IntPtr moduleHandle,
@@ -78,4 +108,3 @@ public static partial class ModuleManipulation
     )
         => RestoreModuleIATs(moduleHandle, iatReplaceDetails.ToArray(), (UIntPtr)iatReplaceDetails.Count);
 }
-*/

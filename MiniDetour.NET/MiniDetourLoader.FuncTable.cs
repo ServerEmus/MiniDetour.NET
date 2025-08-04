@@ -8,7 +8,7 @@ namespace MiniDetour;
 
 public static unsafe partial class MiniDetourLoader
 {
-    public static FunctionTable funcTable;
+    internal static FunctionTable funcTable;
 
     /// <summary>
     /// Initializes the function table, automatically called. Do not call manually, only after <see cref="FreeApi"/>.
@@ -42,7 +42,8 @@ public static unsafe partial class MiniDetourLoader
         funcTable.Load((int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExports, "MiniDetourModuleManipulationRestoreModuleExports");
         funcTable.Load((int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleIATs, "MiniDetourModuleManipulationReplaceModuleIATs");
         funcTable.Load((int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleIATs, "MiniDetourModuleManipulationRestoreModuleIATs");
-        // Utls
+       
+        // Utils
         funcTable.Load((int)FuncTableFunction.MiniDetourUtilsPageRoundUp, "MiniDetourUtilsPageRoundUp");
         funcTable.Load((int)FuncTableFunction.MiniDetourUtilsPageRound, "MiniDetourUtilsPageRound");
         funcTable.Load((int)FuncTableFunction.MiniDetourUtilsPageSize, "MiniDetourUtilsPageSize");
