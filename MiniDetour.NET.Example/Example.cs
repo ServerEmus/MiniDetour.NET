@@ -28,7 +28,7 @@ public class Program
     static string getLibName()
     {
         string platform = RuntimeInformation.RuntimeIdentifier;
-        string path = Path.Combine(Directory.GetCurrentDirectory(), platform, "mini_detour");
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "runtimes", platform, "native" , "mini_detour");
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             path += ".so";
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
