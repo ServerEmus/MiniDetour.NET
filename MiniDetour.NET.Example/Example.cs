@@ -23,9 +23,12 @@ public unsafe class Program
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
+
+
         var ptr = Marshal.GetFunctionPointerForDelegate<CanHookDelegate>(CanHook);
         Console.WriteLine("GetFunctionPointerForDelegate");
         Console.WriteLine(ptr);
+        Console.WriteLine(testHook.CanHook(canHookPtr));
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
         Console.WriteLine("hookedFuncPtr");
         Console.WriteLine(hookedFuncPtr);
