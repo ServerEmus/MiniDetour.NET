@@ -23,7 +23,7 @@ public class Program
         PrintModules();
         Console.WriteLine("loaded lib");
         Console.WriteLine(detour);
-        IntPtr canHookPtr = MiniDetourLoader.funcTable[(int)FuncTableFunction.MiniDetourHookTCanHook];
+        IntPtr canHookPtr = MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
