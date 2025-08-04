@@ -126,7 +126,7 @@ public static unsafe partial class MiniDetourLoader
         return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, exportDetails, exportDetailsCount);
     }
 
-    public static extern UIntPtr ModuleManipulation_GetAllIATSymbols(
+    public static UIntPtr ModuleManipulation_GetAllIATSymbols(
         IntPtr moduleHandle,
         IntPtr iatDetails,
         UIntPtr iatDetailsCount
@@ -135,7 +135,7 @@ public static unsafe partial class MiniDetourLoader
         return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllIATSymbols])(moduleHandle, iatDetails, iatDetailsCount);
     }
 
-    public static extern UIntPtr ModuleManipulation_ReplaceModuleExports(
+    public static UIntPtr ModuleManipulation_ReplaceModuleExports(
         IntPtr moduleHandle,
         IntPtr exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
@@ -144,7 +144,7 @@ public static unsafe partial class MiniDetourLoader
         return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationReplaceModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
     }
 
-    public static extern UIntPtr ModuleManipulation_RestoreModuleExports(
+    public static UIntPtr ModuleManipulation_RestoreModuleExports(
         IntPtr moduleHandle,
         IntPtr exportReplaceDetails,
         UIntPtr exportReplaceDetailsCount
@@ -153,7 +153,7 @@ public static unsafe partial class MiniDetourLoader
         return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr ,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationRestoreModuleExports])(moduleHandle, exportReplaceDetails, exportReplaceDetailsCount);
     }
 
-    public static extern UIntPtr ModuleManipulation_ReplaceModuleIATs(
+    public static UIntPtr ModuleManipulation_ReplaceModuleIATs(
         IntPtr moduleHandle,
         IntPtr iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount
@@ -164,7 +164,7 @@ public static unsafe partial class MiniDetourLoader
         (moduleHandle, iatReplaceDetails, iatReplaceDetailsCount);
     }
 
-    public static extern UIntPtr ModuleManipulation_RestoreModuleIATs(
+    public static UIntPtr ModuleManipulation_RestoreModuleIATs(
         IntPtr moduleHandle,
         IntPtr iatReplaceDetails,
         UIntPtr iatReplaceDetailsCount

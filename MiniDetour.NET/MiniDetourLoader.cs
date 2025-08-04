@@ -2,7 +2,6 @@ using HexaGen.Runtime;
 using System.Diagnostics;
 
 namespace MiniDetour;
-namespace MiniDetour;
 
 public static class MiniDetourLoaderConfig
 {
