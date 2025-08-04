@@ -10,7 +10,7 @@ public class Program
 
     public static void Main(string[] _)
     {
-        IntPtr detour = NativeLibrary.Load("mini_detour");
+        IntPtr detour = NativeLibrary.Load(getLibName());
         IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
         Hook testHook = new();
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
@@ -21,5 +21,18 @@ public class Program
     {
         Console.WriteLine("yeys");
         return true;
+    }
+
+    static string getLibName()
+    {
+        string platform = RuntimeInformation.RuntimeIdentifier;
+        string path = Path.Combine(platform, "mini_detour");
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            path += ".so";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            path += ".dll";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            path += ".dylib";
+        return path;
     }
 }
