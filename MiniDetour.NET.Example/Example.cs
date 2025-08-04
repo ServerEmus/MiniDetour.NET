@@ -25,9 +25,8 @@ public unsafe class Program
         Console.WriteLine(canHookPtr);
         CanHookDelegate d = new CanHookDelegate(CanHook);
         GCHandle dgc = GCHandle.Alloc(d, GCHandleType.Pinned);
-        if (TryGetFunctionPointer(d, out void* v_ptr))
+        if (TryGetFunctionPointer(d, out IntPtr ptr))
         {
-            IntPtr ptr = (IntPtr)v_ptr;
             Console.WriteLine("GetFunctionPointerForDelegate");
             Console.WriteLine(ptr);
             Console.WriteLine("CanHookToCanHookPtr");
@@ -40,10 +39,13 @@ public unsafe class Program
             testHook.CanHook(IntPtr.Zero);
             dgc.Free();
         }
-
+        else
+        {
+            Console.WriteLine("we are sad");
+        }
     }
 
-    static bool TryGetFunctionPointer(Delegate d, out void* pointer)
+    static bool TryGetFunctionPointer(Delegate d, out IntPtr pointer)
     {
         ArgumentNullException.ThrowIfNull(d);
         var method = d.Method;
@@ -54,7 +56,7 @@ public unsafe class Program
             return false;
         }
 
-        pointer = (void*)method.MethodHandle.GetFunctionPointer();
+        pointer = method.MethodHandle.GetFunctionPointer();
         return true;
     }
 
