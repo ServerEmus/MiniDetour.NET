@@ -28,13 +28,6 @@ public class Program
     static string getLibName()
     {
         string platform = RuntimeInformation.RuntimeIdentifier;
-        string path = Path.Combine(platform, "mini_detour");
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            path += ".so";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            path += ".dll";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            path += ".dylib";
-        return path;
+        return Path.Combine(platform, "mini_detour");
     }
 }
