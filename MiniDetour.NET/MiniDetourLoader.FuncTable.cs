@@ -8,7 +8,7 @@ namespace MiniDetour;
 
 public static unsafe partial class MiniDetourLoader
 {
-    internal static FunctionTable funcTable;
+    internal static FunctionTable funcTable = default!;
 
     /// <summary>
     /// Initializes the function table, automatically called. Do not call manually, only after <see cref="FreeApi"/>.

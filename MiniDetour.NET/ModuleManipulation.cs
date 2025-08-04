@@ -38,7 +38,7 @@ public static partial class ModuleManipulation
         UIntPtr exportReplaceDetailsCount
     )
     {
-        exportReplaceDetails = new IATDetails[(int)iatDetailsCount];
+        exportReplaceDetails = new ExportReplaceParameter[(int)exportReplaceDetailsCount];
         var gc = GCHandle.Alloc(exportReplaceDetails, GCHandleType.Pinned);
         var ret = MiniDetourLoader.ModuleManipulation_ReplaceModuleExports(moduleHandle, gc.AddrOfPinnedObject(), exportReplaceDetailsCount);
         gc.Free();
@@ -57,7 +57,7 @@ public static partial class ModuleManipulation
         UIntPtr exportReplaceDetailsCount
     )
     {
-        exportReplaceDetails = new IATDetails[(int)exportReplaceDetailsCount];
+        exportReplaceDetails = new ExportReplaceParameter[(int)exportReplaceDetailsCount];
         var gc = GCHandle.Alloc(exportReplaceDetails, GCHandleType.Pinned);
         var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), exportReplaceDetailsCount);
         gc.Free();
@@ -76,7 +76,7 @@ public static partial class ModuleManipulation
         UIntPtr iatReplaceDetailsCount
     )
     {
-        iatReplaceDetails = new IATDetails[(int)iatReplaceDetailsCount];
+        iatReplaceDetails = new IATReplaceParameter[(int)iatReplaceDetailsCount];
         var gc = GCHandle.Alloc(iatReplaceDetails, GCHandleType.Pinned);
         var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), iatReplaceDetailsCount);
         gc.Free();
@@ -95,7 +95,7 @@ public static partial class ModuleManipulation
         UIntPtr iatReplaceDetailsCount
     )
     {
-        iatReplaceDetails = new IATDetails[(int)iatReplaceDetailsCount];
+        iatReplaceDetails = new IATReplaceParameter[(int)iatReplaceDetailsCount];
         var gc = GCHandle.Alloc(iatReplaceDetails, GCHandleType.Pinned);
         var ret = MiniDetourLoader.ModuleManipulation_GetAllIATSymbols(moduleHandle, gc.AddrOfPinnedObject(), iatReplaceDetailsCount);
         gc.Free();
