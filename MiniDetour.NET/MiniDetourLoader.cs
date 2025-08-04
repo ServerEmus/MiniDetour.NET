@@ -10,7 +10,7 @@ public static class MiniDetourLoaderConfig
 
 public static unsafe partial class MiniDetourLoader
 {
-    static ImGui()
+    static MiniDetourLoader()
     {
         if (MiniDetourLoaderConfig.AotStaticLink)
         {

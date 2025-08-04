@@ -30,10 +30,18 @@ public static unsafe partial class MiniDetourLoader
         MiniDetourMemoryManipulationFlushInstructionCache,
 
         // ModuleManipulation
+        MiniDetourModuleManipulationGetAllExportedSymbols,
+        MiniDetourModuleManipulationGetAllIATSymbols,
+        MiniDetourModuleManipulationReplaceModuleExports,
+        MiniDetourModuleManipulationRestoreModuleExports,
+        MiniDetourModuleManipulationReplaceModuleIATs,
+        MiniDetourModuleManipulationRestoreModuleIATs,
 
         // Utils
         MiniDetourUtilsPageRoundUp,
         MiniDetourUtilsPageRound,
         MiniDetourUtilsPageSize,
+
+        MAX
     }
 }

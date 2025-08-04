@@ -12,43 +12,43 @@ public static unsafe partial class MiniDetourLoader
 
     public static IntPtr Hook_Alloc()
     {
-        AllocDelegate d = Marshal.GetDelegateForFunctionPointer<AllocDelegate>(funcTable[FuncTableFunction.MiniDetourHookTAlloc]);
+        AllocDelegate d = Marshal.GetDelegateForFunctionPointer<AllocDelegate>(funcTable[(int)FuncTableFunction.MiniDetourHookTAlloc]);
         return d();
     }
 
     public static void Hook_Free(IntPtr handle)
     {
-        ((delegate* unmanaged[Cdecl]<IntPtr, void>)funcTable[FuncTableFunction.MiniDetourHookTFree])(handle);
+        ((delegate* unmanaged[Cdecl]<IntPtr, void>)funcTable[(int)FuncTableFunction.MiniDetourHookTFree])(handle);
     }
 
     public static bool Hook_CanHook(IntPtr handle, IntPtr functionToHook)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, bool>)funcTable[FuncTableFunction.MiniDetourHookTCanHook])(handle, functionToHook);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, bool>)funcTable[(int)FuncTableFunction.MiniDetourHookTCanHook])(handle, functionToHook);
     }
 
     public static IntPtr Hook_HookFunction(IntPtr handle, IntPtr functionToHook, IntPtr newFunction)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourHookTHookFunction])(handle, functionToHook, newFunction);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourHookTHookFunction])(handle, functionToHook, newFunction);
     }
 
     public static IntPtr Hook_RestoreFunction(IntPtr handle)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourHookTRestoreFunction])(handle);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourHookTRestoreFunction])(handle);
     }
 
     public static IntPtr Hook_GetHookFunction(IntPtr handle)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourHookTGetHookFunction])(handle);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourHookTGetHookFunction])(handle);
     }
 
     public static IntPtr Hook_GetOriginalFunction(IntPtr handle)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourHookTGetOriginalFunction])(handle);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourHookTGetOriginalFunction])(handle);
     }
 
     public static bool Hook_ReplaceFunction(IntPtr functionToReplace, IntPtr newFunction)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, bool>)funcTable[FuncTableFunction.MiniDetourHookTReplaceFunction])(functionToReplace, newFunction);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, bool>)funcTable[(int)FuncTableFunction.MiniDetourHookTReplaceFunction])(functionToReplace, newFunction);
     }
 
     public static bool MemoryManipulation_MemoryProtect(
@@ -59,7 +59,7 @@ public static unsafe partial class MiniDetourLoader
     )
     {
         old_rights =  MemoryRights.None;
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryManipulation.MemoryRights, MemoryManipulation.MemoryRights*, bool>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationMemoryProtect])(address, size, rights, &old_rights);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryManipulation.MemoryRights, MemoryManipulation.MemoryRights*, bool>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationMemoryProtect])(address, size, rights, &old_rights);
     }
 
     public static void MemoryManipulation_MemoryFree(
@@ -67,7 +67,7 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr size
     )
     {
-        ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, void>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationMemoryFree])(address, size);
+        ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, void>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationMemoryFree])(address, size);
     }
     public static IntPtr MemoryManipulation_MemoryAlloc(
         IntPtr addressHint,
@@ -75,7 +75,7 @@ public static unsafe partial class MiniDetourLoader
         MemoryRights rights
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryRights, IntPtr>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationMemoryFree])(addressHint, size, rights);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryRights, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationMemoryFree])(addressHint, size, rights);
     }
 
     public static bool MemoryManipulation_SafeMemoryRead(
@@ -84,7 +84,7 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr size
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, bool>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationSafeMemoryRead])(address, buffer, size);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, bool>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationSafeMemoryRead])(address, buffer, size);
     }
 
     public static bool MemoryManipulation_SafeMemoryWrite(
@@ -93,7 +93,7 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr size
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, bool>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationSafeMemoryWrite])(address, buffer, size);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr, bool>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationSafeMemoryWrite])(address, buffer, size);
     }
 
     public static UIntPtr MemoryManipulation_WriteAbsoluteJump(
@@ -101,7 +101,7 @@ public static unsafe partial class MiniDetourLoader
         IntPtr destination
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationWriteAbsoluteJump])(address, destination);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, IntPtr, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationWriteAbsoluteJump])(address, destination);
     }
 
     public static int MemoryManipulation_FlushInstructionCache(
@@ -109,23 +109,67 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr size
     )
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, int>)funcTable[FuncTableFunction.MiniDetourMemoryManipulationFlushInstructionCache])(address, size);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, int>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationFlushInstructionCache])(address, size);
     }
 
 
+    public static UIntPtr GetAllExportedSymbols(
+        IntPtr moduleHandle,
+        ModuleManipulation.ExportDetails[] exportDetails,
+        UIntPtr exportDetailsCount
+    )
+    {
+        ModuleManipulation.ExportDetails* ptr = &exportDetails;
+        return ((delegate* unmanaged[Cdecl]<IntPtr, ModuleManipulation.ExportDetails*, UIntPtr,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, ptr, exportDetailsCount);
+    }
+/*
+    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationGetAllIATSymbols", CallingConvention = CallingConvention.Cdecl)]
+    public static extern UIntPtr GetAllIATSymbols(
+        IntPtr moduleHandle,
+        ModuleManipulation.IATDetails[] iatDetails,
+        UIntPtr iatDetailsCount
+    );
 
+    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationReplaceModuleExports", CallingConvention = CallingConvention.Cdecl)]
+    public static extern UIntPtr ReplaceModuleExports(
+        IntPtr moduleHandle,
+        ModuleManipulation.ExportReplaceParameter[] exportReplaceDetails,
+        UIntPtr exportReplaceDetailsCount
+    );
+
+    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationRestoreModuleExports", CallingConvention = CallingConvention.Cdecl)]
+    public static extern UIntPtr RestoreModuleExports(
+        IntPtr moduleHandle,
+        ModuleManipulation.ExportReplaceParameter[] exportReplaceDetails,
+        UIntPtr exportReplaceDetailsCount
+    );
+
+    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationReplaceModuleIATs", CallingConvention = CallingConvention.Cdecl)]
+    public static extern UIntPtr ReplaceModuleIATs(
+        IntPtr moduleHandle,
+        ModuleManipulation.IATReplaceParameter[] iatReplaceDetails,
+        UIntPtr iatReplaceDetailsCount
+    );
+
+    [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationRestoreModuleIATs", CallingConvention = CallingConvention.Cdecl)]
+    public static extern UIntPtr RestoreModuleIATs(
+        IntPtr moduleHandle,
+        ModuleManipulation.IATReplaceParameter[] iatReplaceDetails,
+        UIntPtr iatReplaceDetailsCount
+    );
+*/
     internal static IntPtr Utils_PageRoundUp(IntPtr address, UIntPtr pageSize)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageRoundUp])(address, pageSize);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageRoundUp])(address, pageSize);
     }
 
     internal static IntPtr Utils_PageRound(IntPtr address, UIntPtr pageSize)
     {
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageRound])(address, pageSize);
+        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageRound])(address, pageSize);
     }
 
     internal static UIntPtr Utils_PageSize()
     {
-        return ((delegate* unmanaged[Cdecl]<void, UIntPtr>)funcTable[FuncTableFunction.MiniDetourUtilsPageSize])();
+        return ((delegate* unmanaged[Cdecl]<void, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize])();
     }
 }
