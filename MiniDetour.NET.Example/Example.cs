@@ -12,7 +12,8 @@ public class Program
 
     public static void Main(string[] _)
     {
-        IntPtr detour = NativeLibrary.Load(getLibName());
+        IntPtr detour = GetBaseAddressFrom("mini_detour");
+        Console.WriteLine("loaded lib");
         IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
         Hook testHook = new();
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
@@ -25,16 +26,22 @@ public class Program
         return true;
     }
 
-    static string getLibName()
+    static List<ProcessModule> ProcessModules { get; } = [];
+    static Process CachedProcess { get; }
+
+    static IntPtr GetBaseAddressFrom(string moduleName)
     {
-        string platform = RuntimeInformation.RuntimeIdentifier;
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "runtimes", platform, "native" , "mini_detour");
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            path += ".so";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            path += ".dll";
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            path += ".dylib";
-        return path;
+        CachedProcess = Process.GetCurrentProcess();
+        CachedProcess.Refresh();
+        ProcessModules.Clear();
+        ProcessModuleCollection myProcessModuleCollection = CachedProcess.Modules;
+        for (int i = 0; i < myProcessModuleCollection.Count; i++)
+        {
+            ProcessModules.Add(myProcessModuleCollection[i]);
+        }
+        ProcessModule? module = ProcessModules.FirstOrDefault(x => x.ModuleName.Contains(moduleName, StringComparison.InvariantCultureIgnoreCase));
+        if (module == null)
+            return IntPtr.Zero;
+        return module.BaseAddress;
     }
 }
