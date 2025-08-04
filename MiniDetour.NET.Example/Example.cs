@@ -25,18 +25,37 @@ public unsafe class Program
         Console.WriteLine(canHookPtr);
         CanHookDelegate d = new CanHookDelegate(CanHook);
         GCHandle dgc = GCHandle.Alloc(d, GCHandleType.Pinned);
-        var ptr = Marshal.GetFunctionPointerForDelegate(d);
-        Console.WriteLine("GetFunctionPointerForDelegate");
-        Console.WriteLine(ptr);
-        Console.WriteLine("CanHookToCanHookPtr");
-        Console.WriteLine(testHook.CanHook(canHookPtr)); 
-        Console.WriteLine("CanHookToPtr");
-        Console.WriteLine(testHook.CanHook(ptr));
-        IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
-        Console.WriteLine("hookedFuncPtr");
-        Console.WriteLine(hookedFuncPtr);
-        testHook.CanHook(IntPtr.Zero);
-        dgc.Free();
+        if (TryGetFunctionPointer(d, out void* v_ptr))
+        {
+            IntPtr ptr = (IntPtr)v_ptr;
+            Console.WriteLine("GetFunctionPointerForDelegate");
+            Console.WriteLine(ptr);
+            Console.WriteLine("CanHookToCanHookPtr");
+            Console.WriteLine(testHook.CanHook(canHookPtr)); 
+            Console.WriteLine("CanHookToPtr");
+            Console.WriteLine(testHook.CanHook(ptr));
+            IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
+            Console.WriteLine("hookedFuncPtr");
+            Console.WriteLine(hookedFuncPtr);
+            testHook.CanHook(IntPtr.Zero);
+            dgc.Free();
+        }
+
+    }
+
+    static bool TryGetFunctionPointer(Delegate d, out void* pointer)
+    {
+        ArgumentNullException.ThrowIfNull(d);
+        var method = d.Method;
+
+        if (d.Target is {} || !method.IsStatic || method is DynamicMethod)
+        {
+            pointer = null;
+            return false;
+        }
+
+        pointer = (void*)method.MethodHandle.GetFunctionPointer();
+        return true;
     }
 
     static bool CanHook(IntPtr handle, IntPtr functionToHook)
