@@ -25,7 +25,7 @@ public unsafe class Program
         Console.WriteLine(canHookPtr);
         CanHookDelegate d = new CanHookDelegate(CanHook);
         GCHandle dgc = GCHandle.Alloc(d, GCHandleType.Pinned);
-        IntPtr ptr = dgc.AddrOfPinnedObject();
+        var ptr = Marshal.GetFunctionPointerForDelegate(d);
         Console.WriteLine("GetFunctionPointerForDelegate");
         Console.WriteLine(ptr);
         Console.WriteLine("CanHookToCanHookPtr");
@@ -36,6 +36,7 @@ public unsafe class Program
         Console.WriteLine("hookedFuncPtr");
         Console.WriteLine(hookedFuncPtr);
         testHook.CanHook(IntPtr.Zero);
+        dgc.Free();
     }
 
     static bool CanHook(IntPtr handle, IntPtr functionToHook)
