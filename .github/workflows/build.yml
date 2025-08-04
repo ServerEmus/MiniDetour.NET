@@ -40,3 +40,9 @@ jobs:
       with:
         name: Build-${{ matrix.os }}-${{ matrix.platform }}
         path: Out/*
+
+    - name: Run Example
+      run: |
+        cd Out/EXAMPLE/DOTNET 
+        .\MiniDetour.NET.Example
+
