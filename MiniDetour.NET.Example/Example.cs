@@ -1,28 +1,23 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using MiniDetour;
+
+namespace MiniDetour.NET.Example;
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate bool CanHookDelegate(IntPtr handle, IntPtr functionToHook);
 
 public unsafe class Program
 {
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool CanHookDelegate(IntPtr handle, IntPtr functionToHook);
-
     public static void Main(string[] _)
     {
-        Hook testHook = new();
+        using Hook testHook = new(true);
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
-        CanHookDelegate d = new CanHookDelegate(CanHook);
-        if (TryGetFunctionPointer(d, out IntPtr ptr))
+        CanHookDelegate d = new(CanHook);
+        IntPtr ptr = Marshal.GetFunctionPointerForDelegate(d);
+        if (ptr != IntPtr.Zero)
         {
-            Console.WriteLine(canHookPtr);
             Console.WriteLine(testHook.CanHook(canHookPtr));
+            Console.WriteLine(testHook.CanHook(ptr));
             if (!testHook.CanHook(canHookPtr))
             {
                 Console.WriteLine("Cannot hook the original CanHook!");
@@ -36,29 +31,11 @@ public unsafe class Program
                 return;
             }
             Console.WriteLine(testHook.CanHook(ptr));
-
         }
-        else
-        {
-            Console.WriteLine("we are sad");
-        }
-        testHook.RestoreFunction();
-        Console.WriteLine(testHook.Handle);
-    }
-
-    static bool TryGetFunctionPointer(Delegate d, out IntPtr pointer)
-    {
-        ArgumentNullException.ThrowIfNull(d);
-        var method = d.Method;
-
-        if (d.Target is {} || !method.IsStatic || method is DynamicMethod)
-        {
-            pointer = IntPtr.Zero;
-            return false;
-        }
-
-        pointer = method.MethodHandle.GetFunctionPointer();
-        return true;
+        testHook.Dispose();
+        using Hook testHook2 = new(true);
+        Console.WriteLine(testHook2.CanHook(canHookPtr));
+        Console.ReadLine();
     }
 
     static bool CanHook(IntPtr handle, IntPtr functionToHook)

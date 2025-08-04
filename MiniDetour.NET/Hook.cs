@@ -1,18 +1,28 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
-// TODO: Disposable!
-public class Hook 
+public class Hook : IDisposable
 {
-    public IntPtr Handle { get; } = MiniDetourLoader.Hook_Alloc();
+    public Hook()
+    {
+        Handle = MiniDetourLoader.Hook_Alloc();
+    }
+
+    public Hook(bool autoRestore) : this()
+    {
+        RestoreOnDestroy(autoRestore);
+    }
+
+    private bool _disposed;
+    private IntPtr Handle { get; } = MiniDetourLoader.Hook_Alloc();
 
     public bool CanHook(IntPtr functionToHook)
         => MiniDetourLoader.Hook_CanHook(Handle, functionToHook);
 
     public IntPtr HookFunction<TDelegate>(IntPtr functionToHook, TDelegate tdelegate) where TDelegate : notnull
-        => HookFunction(functionToHook, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
+        => HookFunction(functionToHook, Marshal.GetFunctionPointerForDelegate(tdelegate));
 
     public IntPtr HookFunction(IntPtr functionToHook, IntPtr newFunction)
         => MiniDetourLoader.Hook_HookFunction(Handle, functionToHook, newFunction);
@@ -27,15 +37,27 @@ public class Hook
         => MiniDetourLoader.Hook_GetOriginalFunction(Handle);
 
     public static bool ReplaceFunction<TDelegate>(IntPtr functionToReplace, TDelegate tdelegate) where TDelegate : notnull
-        => ReplaceFunction(functionToReplace, Marshal.GetFunctionPointerForDelegate<TDelegate>(tdelegate));
+        => ReplaceFunction(functionToReplace, Marshal.GetFunctionPointerForDelegate(tdelegate));
 
     public static bool ReplaceFunction(IntPtr functionToReplace, IntPtr newFunction)
         => MiniDetourLoader.Hook_ReplaceFunction(functionToReplace, newFunction);
 
-    ~Hook()
+    public void RestoreOnDestroy(bool restore)
+    => MiniDetourLoader.Hook_RestoreOnDestroy(Handle, restore);
+
+    ~Hook() => Dispose(false);
+
+    public void Dispose()
     {
-        if (Handle == IntPtr.Zero)
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected void Dispose(bool _)
+    {
+        if (_disposed)
             return;
         MiniDetourLoader.Hook_Free(Handle);
+        _disposed = true;
     }
 }

@@ -1,10 +1,6 @@
-using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using HexaGen.Runtime;
-using System.Numerics;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
 public static unsafe partial class MiniDetourLoader
 {
@@ -15,10 +11,12 @@ public static unsafe partial class MiniDetourLoader
     /// </summary>
     public static void InitApi(INativeContext context)
     {
-        funcTable = new FunctionTable(context, (int)FuncTableFunction.MAX);
+        funcTable = new(context, (int)FuncTableFunction.MAX);
+
         // Hook
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTAlloc, "MiniDetourHookTAlloc");
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTFree, "MiniDetourHookTFree");
+        funcTable.Load((int)FuncTableFunction.MiniDetourHookTRestoreOnDestroy, "MiniDetourHookTRestoreOnDestroy");
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTCanHook, "MiniDetourHookTCanHook");
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTHookFunction, "MiniDetourHookTHookFunction");
         funcTable.Load((int)FuncTableFunction.MiniDetourHookTRestoreFunction, "MiniDetourHookTRestoreFunction");

@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
 public static partial class ModuleManipulation
 {

@@ -1,25 +1,22 @@
 using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using HexaGen.Runtime;
-using System.Numerics;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
 public static unsafe partial class MiniDetourLoader
 {
-    delegate IntPtr IntPtrVoidDelegate();
-    delegate UIntPtr UIntPtrVoidDelegate();
-
     public static IntPtr Hook_Alloc()
     {
-        IntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<IntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourHookTAlloc]);
-        return d();
+        return ((delegate* unmanaged[Cdecl]<IntPtr>)funcTable[(int)FuncTableFunction.MiniDetourHookTAlloc])();
     }
 
     public static void Hook_Free(IntPtr handle)
     {
         ((delegate* unmanaged[Cdecl]<IntPtr, void>)funcTable[(int)FuncTableFunction.MiniDetourHookTFree])(handle);
+    }
+
+    public static void Hook_RestoreOnDestroy(IntPtr handle, bool restore)
+    {
+        ((delegate* unmanaged[Cdecl]<IntPtr, bool, void>)funcTable[(int)FuncTableFunction.MiniDetourHookTRestoreOnDestroy])(handle, restore);
     }
 
     public static bool Hook_CanHook(IntPtr handle, IntPtr functionToHook)
@@ -195,7 +192,6 @@ public static unsafe partial class MiniDetourLoader
 
     internal static UIntPtr Utils_PageSize()
     {
-        UIntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<UIntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize]);
-        return d();
+        return ((delegate* unmanaged[Cdecl]<UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize])();
     }
 }

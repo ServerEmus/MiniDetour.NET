@@ -10,7 +10,7 @@
 		<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible> 
 
 		<AssemblyVersion>1.1.4</AssemblyVersion>
-		<PackageVersion>1.1.4.1</PackageVersion>
+		<PackageVersion>1.1.4.2</PackageVersion>
 		<PackageTags></PackageTags>
 		<Authors>ServerEmus</Authors>
 		<PackageProjectUrl>https://github.dev/ServerEmus/MiniDetour.NET</PackageProjectUrl>

@@ -1,11 +1,11 @@
 using HexaGen.Runtime;
 using System.Diagnostics;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
 public static class MiniDetourLoaderConfig
 {
-    public static bool AotStaticLink;
+    public static bool AotStaticLink { get; set; }
 }
 
 public static unsafe partial class MiniDetourLoader

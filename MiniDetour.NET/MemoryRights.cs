@@ -1,6 +1,6 @@
 using System;
 
-namespace MiniDetour;
+namespace MiniDetour.NET;
 
 [Flags]
 public enum MemoryRights
