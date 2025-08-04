@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using MiniDetour;
@@ -11,7 +12,7 @@ public class Program
 
     public static void Main(string[] _)
     {
-        IntPtr detour = NativeLibrary.Load(getLibName());
+        IntPtr detour = NativeLibrary.Load(getLibName(), Assembly.GetEntryAssembly(), DllImportSearchPath.AssemblyDirectory);
         IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
         Hook testHook = new();
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
