@@ -15,14 +15,14 @@ public class Program
 
     public static void Main(string[] _)
     {
+        Console.WriteLine("testHook");
+        Hook testHook = new();
         IntPtr detour = GetBaseAddressFrom("mini_detour");
         Console.WriteLine("loaded lib");
         Console.WriteLine(detour);
         IntPtr canHookPtr = NativeLibrary.GetExport(detour, "MiniDetourHookTCanHook");
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
-        Hook testHook = new();
-        Console.WriteLine("testHook");
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
         Console.WriteLine("hookedFuncPtr");
         Console.WriteLine(hookedFuncPtr);
