@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MiniDetour;
 
-public class Program
+public unsafe class Program
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate bool CanHookDelegate(IntPtr handle, IntPtr functionToHook);
@@ -23,7 +23,7 @@ public class Program
         PrintModules();
         Console.WriteLine("loaded lib");
         Console.WriteLine(detour);
-        IntPtr canHookPtr = MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
+        IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         Console.WriteLine("GetExport");
         Console.WriteLine(canHookPtr);
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, new CanHookDelegate(CanHook));
