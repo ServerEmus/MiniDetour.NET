@@ -16,8 +16,6 @@ public unsafe class Program
 
     public static void Main(string[] _)
     {
-        ModuleManipulation
-
         Hook testHook = new();
         IntPtr canHookPtr = (IntPtr)MiniDetourLoader.funcTable[(int)MiniDetourLoader.FuncTableFunction.MiniDetourHookTCanHook];
         CanHookDelegate d = new CanHookDelegate(CanHook);
