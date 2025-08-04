@@ -8,11 +8,11 @@ namespace MiniDetour;
 
 public static unsafe partial class MiniDetourLoader
 {
-    delegate IntPtr AllocDelegate();
+    delegate IntPtr IntPtrVoidDelegate();
 
     public static IntPtr Hook_Alloc()
     {
-        AllocDelegate d = Marshal.GetDelegateForFunctionPointer<AllocDelegate>(funcTable[(int)FuncTableFunction.MiniDetourHookTAlloc]);
+        IntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<IntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourHookTAlloc]);
         return d();
     }
 
@@ -59,7 +59,10 @@ public static unsafe partial class MiniDetourLoader
     )
     {
         old_rights =  MemoryRights.None;
-        return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryManipulation.MemoryRights, MemoryManipulation.MemoryRights*, bool>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationMemoryProtect])(address, size, rights, &old_rights);
+        fixed (MemoryRights* out_ptr = &old_rights)
+        {
+            return ((delegate* unmanaged[Cdecl]<IntPtr, UIntPtr, MemoryRights, MemoryRights*, bool>)funcTable[(int)FuncTableFunction.MiniDetourMemoryManipulationMemoryProtect])(address, size, rights, out_ptr);
+        }    
     }
 
     public static void MemoryManipulation_MemoryFree(
@@ -119,8 +122,10 @@ public static unsafe partial class MiniDetourLoader
         UIntPtr exportDetailsCount
     )
     {
-        ModuleManipulation.ExportDetails* ptr = &exportDetails;
-        return ((delegate* unmanaged[Cdecl]<IntPtr, ModuleManipulation.ExportDetails*, UIntPtr,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, ptr, exportDetailsCount);
+        fixed (ModuleManipulation.ExportDetails* ptr = exportDetails)
+        {
+            return ((delegate* unmanaged[Cdecl]<IntPtr, ModuleManipulation.ExportDetails*, UIntPtr,UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourModuleManipulationGetAllExportedSymbols])(moduleHandle, ptr, exportDetailsCount);
+        }
     }
 /*
     [DllImport(Consts.DllName, EntryPoint = "MiniDetourModuleManipulationGetAllIATSymbols", CallingConvention = CallingConvention.Cdecl)]
@@ -170,6 +175,7 @@ public static unsafe partial class MiniDetourLoader
 
     internal static UIntPtr Utils_PageSize()
     {
-        return ((delegate* unmanaged[Cdecl]<void, UIntPtr>)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize])();
+        IntPtrVoidDelegate d = Marshal.GetDelegateForFunctionPointer<IntPtrVoidDelegate>((IntPtr)funcTable[(int)FuncTableFunction.MiniDetourUtilsPageSize]);
+        return d();
     }
 }

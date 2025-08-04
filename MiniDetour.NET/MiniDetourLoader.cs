@@ -14,11 +14,11 @@ public static unsafe partial class MiniDetourLoader
     {
         if (MiniDetourLoaderConfig.AotStaticLink)
         {
-            InitApi(new NativeLibraryContext(Process.GetCurrentProcess().MainModule!.BaseAddress));
+            MiniDetourLoader.InitApi(new NativeLibraryContext(Process.GetCurrentProcess().MainModule!.BaseAddress));
         }
         else
         {
-            InitApi(new NativeLibraryContext(LibraryLoader.LoadLibrary(GetLibraryName, null)));
+            MiniDetourLoader.InitApi(new NativeLibraryContext(LibraryLoader.LoadLibrary(GetLibraryName, null)));
         }
     }
 
