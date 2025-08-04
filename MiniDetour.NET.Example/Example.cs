@@ -28,7 +28,10 @@ public unsafe class Program
         var ptr = Marshal.GetFunctionPointerForDelegate<CanHookDelegate>(CanHook);
         Console.WriteLine("GetFunctionPointerForDelegate");
         Console.WriteLine(ptr);
-        Console.WriteLine(testHook.CanHook(canHookPtr));
+        Console.WriteLine("CanHookToCanHookPtr");
+        Console.WriteLine(testHook.CanHook(canHookPtr)); 
+        Console.WriteLine("CanHookToPtr");
+        Console.WriteLine(testHook.CanHook(ptr));
         IntPtr hookedFuncPtr = testHook.HookFunction(canHookPtr, ptr);
         Console.WriteLine("hookedFuncPtr");
         Console.WriteLine(hookedFuncPtr);
