@@ -37,7 +37,6 @@ public unsafe class Program
             Console.WriteLine("hookedFuncPtr");
             Console.WriteLine(hookedFuncPtr);
             testHook.CanHook(IntPtr.Zero);
-            dgc.Free();
         }
         else
         {
